@@ -1,0 +1,13 @@
+import React, { Component } from 'react';
+
+class TopTitle extends Component{
+    render(){
+      return (
+        <article>
+            <h2>{this.props.title}</h2>
+        </article>
+      );
+    }
+  }
+
+export default TopTitle;
