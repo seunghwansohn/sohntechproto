@@ -1,3 +1,4 @@
+/*create-react-app 패키지를 통해 리액트 프로젝트 형성시 기본으로 설치되는 css 파일임. 이것보다는 app.css를 건드려서 스타일 형성*/
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class TopTitle extends Component{
+class TopBar extends Component{
     render(){
       return (
         <article>
-            <h2>{this.props.title}</h2>
+            <h1>{this.props.title}</h1>
         </article>
       );
     }
   }
 
-export default TopTitle;
+export default TopBar;
