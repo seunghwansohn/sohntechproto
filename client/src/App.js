@@ -9,13 +9,10 @@ import './App.css'; //css 로딩
 
 
 
-class App extends Component {   //1-1. APP라는 콤포넌트를 만들어 밖으로 전달하는 시작구문.
-
-    
-
-    
-  constructor(props){           //2-1. State를 선언하는 일반 구문
-    super(props);               //2-2. State를 선언하는 일반 구문
+class App extends Component {   //1-1. APP라는 생성자를 React Component 생성자를 상속하여 만들
+  
+  constructor(props){           //2-1. State를 선언하는 일반 구문 (APP의 기본적인 프로퍼티를 형성. App.state.스테이트명 의 프로퍼티형성)
+    super(props);               //2-2. State를 선언하는 일반 구문 (super는 슈퍼클래스 기본 생성자 접근 구문이라고 함. 그냥 외우고 쓰면 됨)
     this.state = {              //2-3. State를 선언하는 일반 구문
       mode:'read',              //현재 페이지의 '기본성격'을 나타내는 state를 mode라는 이름으로 선언
       selected_content_id:2,     
@@ -25,22 +22,29 @@ class App extends Component {   //1-1. APP라는 콤포넌트를 만들어 밖�
         {id:1, title:'Search Item', desc:'Search Product'},
         {id:2, title:'Projects', desc:'Search Product'}
       ],
-      customers:''
+      customers:[
+        {id:99, KRsupplier:"jj"}
+      ]
     }
   }
-
+  
   componentDidMount() {   //컴포넌트가 만들어지고 render가 호출된 이후에 호출되는 메소드
     this.callApi()        //json 결과를 저장한 값인 callApi 메소드의 값을 불러와서??
     .then(res => this.setState({customers: res}))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
+    // .then(res => console.log(res[0].KRsupplier))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
     .catch(err => console.log(err)); //에러값이 나면 콘솔에 해당 에러를 출력
+    // console.log(this.state);
     }
     
   callApi = async () => {    //node.js api 서버를 호출하는 함수. async는 비동기 처리를 위한 것
     const response = await fetch('/api/customers');
     const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
+    console.log(body[0].KRsupplier);
     return body; //body를 return하여 callApi라는 메소드의 값으로 반환
+    
     }
   
+
   render(){
     var _title, _desc = null;    //return문 전에 state가 각각 변할시에 처리할 연산을 규정
     if(this.state.mode ===  'welcome'){
@@ -61,7 +65,8 @@ class App extends Component {   //1-1. APP라는 콤포넌트를 만들어 밖�
     return (  //실제로 html로 반환할 내용을 여기서 규정
       <div className="App">
       <TopBar title = {this.state.toptitle}/>   {/* TopBar 콤포넌트에 title이라는 props에 toptitle이라는 state를 전달*/}
-      {/* <TopBar title = {this.state.customers[0].id}/> */}
+      {/* <TopBar title = {this.state.customers[0].id} */}
+      <TopBar title = {this.state.customers[0].KRsupplier}></TopBar>
       <TOC 
           onChangePage={function(id){
             this.setState({
@@ -72,10 +77,11 @@ class App extends Component {   //1-1. APP라는 콤포넌트를 만들어 밖�
           data={this.state.contents}
       ></TOC>
       <ContentWindow title={_title} desc={_desc}></ContentWindow>
-      
+
       
       </div>
   );
+  console.log(this.state.customers);
 }
 }
 
