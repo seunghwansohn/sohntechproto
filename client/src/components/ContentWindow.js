@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FindItem from "./SubMenu/FindItem";
 import Projects from "./SubMenu/Projects";
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 import { thisExpression } from '@babel/types';
 
@@ -15,11 +17,22 @@ class ContentWindow extends Component{
     render(){
       return (
         <div>
-            <h2>{this.props.title}</h2>
-            <this.state.selectedComponent subMenuTitle = {this.props.title}/>
+            {/* <h2>{this.props.title}eeeeee</h2> */}
+            {/* <this.state.selectedComponent subMenuTitle = {this.props.title}/> */}
+            <TableRow>
+              <TableCell>{this.props.customerid}</TableCell>
+              <TableCell>{this.props.itemCode}</TableCell>
+              <TableCell>{this.props.itemName}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>{this.props.customerid}</TableCell>
+              <TableCell>{this.props.itemCode}</TableCell>
+              <TableCell>{this.props.itemName}</TableCell>
+            </Tab leRow>
         </div>
         // 
       );
+    console.log(this.props.fff);
     }
   }
 
