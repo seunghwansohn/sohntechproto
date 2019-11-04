@@ -28,11 +28,10 @@ class ContentWindow extends Component{
               <TableCell>{this.props.customerid}</TableCell>
               <TableCell>{this.props.itemCode}</TableCell>
               <TableCell>{this.props.itemName}</TableCell>
-            </Tab leRow>
+            </TableRow>
         </div>
         // 
       );
-    console.log(this.props.fff);
     }
   }
 
