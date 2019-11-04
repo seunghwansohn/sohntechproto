@@ -86,9 +86,10 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
 
             </TableHead>
             <TableBody>
-            {this.state.customers.map(c=> {return(
+            {/* {this.state.customers.map(c=> {return(
               <ContentWindow key = {c.id} customerid = {c.id} itemCode = {c.itemCode} itemName = {c.itemName}></ContentWindow>
-            )})}
+            )})} */}
+            <ContentWindow></ContentWindow>
             </TableBody>
           </Table>
         </div>
