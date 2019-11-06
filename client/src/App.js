@@ -9,11 +9,8 @@ import './App.css'; //css 로딩
 import Table from '@material-ui/core/Table'; //material-ui의 Table ui를 불러와서 프론트엔드에 쓰이는 모든 테이블 스타일을 이 스타일로 함.
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
+import QuoteList from "./components/SubMenu/QuoteList";
 import AddItem from "./components/SubMenu/AddItem";
-
-
-
-
 
 class App extends Component {   //1-1. APP라는 생성자를 React Component 생성자를 상속하여 만들
   
@@ -86,19 +83,14 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
 
             </TableHead>
             <TableBody>
-            {/* {this.state.customers.map(c=> {return(
-              <ContentWindow key = {c.id} customerid = {c.id} itemCode = {c.itemCode} itemName = {c.itemName}></ContentWindow>
-            )})} */}
             <ContentWindow></ContentWindow>
             </TableBody>
           </Table>
         </div>
+        <div><QuoteList id = '또라이'></QuoteList></div>
         <AddItem></AddItem>
-
-      
       </div>
   );
-  console.log(this.state.customers);
 }
 }
 

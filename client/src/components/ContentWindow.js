@@ -21,7 +21,6 @@ class ContentWindow extends Component{
           ]
         }
       }
-
     componentDidMount() {   //컴포넌트가 만들어지고 render가 호출된 이후에 호출되는 메소드
       this.callApi1()        //json 결과를 저장한 값인 callApi 메소드의 값을 불러와서 customer라는 state의 값을 변경해줌.
       .then(res => this.setState({customers: res}))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
@@ -32,35 +31,30 @@ class ContentWindow extends Component{
       const response = await fetch('/api/customers');
       const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
       return body; //body를 return하여 callApi라는 메소드의 값으로 반환
-      
+    }
+
+    willInputItems = [];
+
+    inputItem = function (f){
+      this.willInputItems.push(f);
+      console.log(this.willInputItems);
     }
     render(){
       return (
         <div>
-            {/* <h2>{this.props.title}eeeeee</h2> */}
-            {/* <this.state.selectedComponent subMenuTitle = {this.props.title}/> */}
-            {/* <TableRow>
-              <TableCell>{this.props.customerid}</TableCell>
-              <TableCell>{this.props.itemCode}</TableCell>
-              <TableCell>{this.props.itemName}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>{this.props.customerid}</TableCell>
-              <TableCell>{this.props.itemCode}</TableCell>
-              <TableCell>{this.props.itemName}</TableCell>
-            </TableRow> */}
             <TableBody>
-              {/* <TableRow>
-                <TableCell>{this.state.customers[0].id}</TableCell>
-                <TableCell>{this.state.customers[0].itemCode}</TableCell>
-                <TableCell>{this.state.customers[0].itemName}</TableCell>
-              </TableRow> */}
+   
               {this.state.customers.map(c=> {return(
                 <TableBody>
                 <TableRow>
                   <TableCell> {c.id} </TableCell> 
                   <TableCell> {c.itemCode} </TableCell> 
-                  <TableCell> {c.itemName} </TableCell> 
+                  <TableCell> {c.itemName} </TableCell>
+                  <TableCell> <button onClick= {function(e){
+                    console.log(e);
+                    e.preventDefault();
+                    this.inputItem(c.id);
+                    }.bind(this)}>  삽입</button></TableCell> 
                 </TableRow>
                 </TableBody>
               );})}
