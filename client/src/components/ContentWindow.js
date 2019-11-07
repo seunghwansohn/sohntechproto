@@ -37,7 +37,6 @@ class ContentWindow extends Component{
 
     inputItem = function (f){
       this.willInputItems.push(f);
-      console.log(this.willInputItems);
     }
     render(){
       return (

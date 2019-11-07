@@ -27,10 +27,12 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
       ],
       customers:[
         {id:99, KRsupplier:"jj"}
-      ]
+      ],
+      pickedItems:[]
     }
   }
   
+  pickedItems1 = [];
   componentDidMount() {   //컴포넌트가 만들어지고 render가 호출된 이후에 호출되는 메소드
     this.callApi()        //json 결과를 저장한 값인 callApi 메소드의 값을 불러와서 customer라는 state의 값을 변경해줌.
     .then(res => this.setState({customers: res}))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
@@ -44,11 +46,8 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
     
   }
 
-  test = function () {
-    console.log('두루루');
-  }
   render(){       //render 메소드 안에서 return문 시작 전의 부분에는 "state가 각각 변할시에 처리할 연산"을 규정
-    console.log(this.state.customers);
+    // console.log(this.state.customers);
     var _title, _desc = null;    
     if(this.state.mode ===  'welcome'){
       _title = this.state.welcome.title;
@@ -88,16 +87,19 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
             <TableBody>
             <ContentWindow onChangePage= 
               {function(a){
-                console.log(a);
+                this.setState({
+                  pickedItems : a
+                });
               }.bind(this)}>
             </ContentWindow>
             </TableBody>
           </Table>
         </div>
+        
+        
         <div><QuoteList id = '또라이' onChangePage= 
-        {function(a){
-          console.log(a);
-
+        {function(){
+          console.log(this.state.pickedItems);
         }.bind(this)}
           ></QuoteList></div>
         <AddItem></AddItem>
