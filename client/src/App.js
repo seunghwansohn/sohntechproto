@@ -97,7 +97,7 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
         </div>
         
         
-        <div><QuoteList id = '또라이' onChangePage= 
+        <div><QuoteList id = '또라이' pickedID = {this.state.pickedItems} onChangePage= 
         {function(){
           console.log(this.state.pickedItems);
         }.bind(this)}
