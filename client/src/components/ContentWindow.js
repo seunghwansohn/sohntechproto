@@ -42,23 +42,31 @@ class ContentWindow extends Component{
     render(){
       return (
         <div>
+          <Table>
+            <TableHead>
+              <TableCell>No</TableCell>
+              <TableCell>Code</TableCell>
+              <TableCell>Item</TableCell>
+            </TableHead>
             <TableBody>
    
               {this.state.customers.map(c=> {return(
-                <TableBody>
                 <TableRow>
                   <TableCell> {c.id} </TableCell> 
                   <TableCell> {c.itemCode} </TableCell> 
                   <TableCell> {c.itemName} </TableCell>
                   <TableCell> <button onClick= {function(e){
-                    console.log(e);
                     e.preventDefault();
                     this.inputItem(c.id);
-                    }.bind(this)}>  삽입</button></TableCell> 
+                    this.props.onChangePage(this.willInputItems);
+                  }.bind(this)}>삽입</button></TableCell> 
                 </TableRow>
-                </TableBody>
               );})}
             </TableBody>
+          </Table>
+            <div>
+              아름다운
+            </div>
         </div>
         // 
       );
