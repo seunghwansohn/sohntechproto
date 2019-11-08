@@ -108,6 +108,18 @@ class ContentWindow extends Component{
     }
     render(){
       const { classes } = this.props;
+      const filteredComponents = (data) => {
+        console.log(data);
+        // return data.filter(name => name.indexOf('ia') > -1);
+      }
+
+      const names = ['Victoria', 'Pearl', 'Olivia', 'Annabel', 'Sandra', 'Sarah'];
+      const filterItems = (letters) => {
+          return names.filter(name => name.indexOf(letters) > -1);
+      } 
+  
+      console.log(filterItems('ia')); // ["Victoria", "Olivia"]
+      console.log(this.state.customers);
       return (
         <div className={classes.root}>
           <AppBar position="static">
@@ -143,19 +155,21 @@ class ContentWindow extends Component{
               <TableCell>Item</TableCell>
             </TableHead>
             <TableBody>
-   
-              {this.state.customers.map(c=> {return(
-                <TableRow>
-                  <TableCell> {c.id} </TableCell> 
-                  <TableCell> {c.itemCode} </TableCell> 
-                  <TableCell> {c.itemName} </TableCell>
-                  <TableCell> <button onClick= {function(e){
-                    e.preventDefault();
-                    this.inputItem(c.id);
-                    this.props.onChangePage(this.willInputItems);
-                  }.bind(this)}>삽입</button></TableCell> 
-                </TableRow>
-              );})}
+                  {this.state.customers ?
+                    filteredComponents(this.state.customers) : <TableRow></TableRow>
+              // {/* {this.state.customers.map(c=> {return(
+              //   <TableRow>
+              //     <TableCell> {c.id} </TableCell> 
+              //     <TableCell> {c.itemCode} </TableCell> 
+              //     <TableCell> {c.itemName} </TableCell>
+              //     <TableCell> <button onClick= {function(e){
+              //       e.preventDefault();
+              //       this.inputItem(c.id);
+              //       this.props.onChangePage(this.willInputItems);
+              //     }.bind(this)}>삽입</button></TableCell> 
+              //   </TableRow>
+              // );})} */}
+                  }
             </TableBody>
           </Table>
             <div>

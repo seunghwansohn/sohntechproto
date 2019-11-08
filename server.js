@@ -23,7 +23,7 @@ connection.connect();
 
 app.get('/api/customers', (req, res) => {
   connection.query(
-    'SELECT * FROM itemList WHERE id=1',
+    'SELECT * FROM itemList',
     (err, rows, fields) => {
     res.send(rows);
     }
