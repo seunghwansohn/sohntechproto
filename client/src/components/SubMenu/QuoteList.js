@@ -29,7 +29,6 @@ class QuoteList extends React.Component {
     }
 
     render() {
-
         return(
            <div>
                Picked Items
@@ -48,9 +47,6 @@ class QuoteList extends React.Component {
                             <TableCell>{c}</TableCell>
                         </TableRow>
                     );})}
-                    <TableRow> 
-                        <TableCell>fff{this.props.pickedID[0]}</TableCell>
-                    </TableRow>
                </TableBody>
            </div>
         )
