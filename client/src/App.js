@@ -138,7 +138,7 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
     
       return (  //실제로 html로 반환할 내용을 여기서 규정
         <div className={classes.root}>
-                  <AppBar position="static">
+          <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
