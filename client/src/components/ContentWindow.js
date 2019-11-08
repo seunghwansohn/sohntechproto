@@ -16,6 +16,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { thisExpression } from '@babel/types';
 
 const styles = theme => ({
@@ -71,6 +72,7 @@ const styles = theme => ({
   },
 });
 
+
 class ContentWindow extends Component{
     constructor(props){           //2-1. State를 선언하는 일반 구문
         super(props);               //2-2. State를 선언하는 일반 구문
@@ -100,28 +102,31 @@ class ContentWindow extends Component{
     inputItem = function (f){
       this.willInputItems.push(f);
     }
+
     handleValueChange = (e) => {
       let nextState = {};
       nextState = {};
       nextState[e.target.name] = e.target.value;
-      console.log(nextState);
+      // console.log(nextState);
     }
-    render(){
-      const { classes } = this.props;
-      const filteredComponents = (data) => {
-        console.log(data);
-        // return data.filter(name => name.indexOf('ia') > -1);
-      }
 
-      const names = ['Victoria', 'Pearl', 'Olivia', 'Annabel', 'Sandra', 'Sarah'];
-      const filterItems = (letters) => {
-          return names.filter(name => name.indexOf(letters) > -1);
-      } 
-  
-      console.log(filterItems('ia')); // ["Victoria", "Olivia"]
-      console.log(this.state.customers);
+    render(){
+      const filteredComponents = (data) => {
+        // data = data.filter((c) => {
+          // return c..indexOf(this.state.searchKeyword) > -1;
+          console.log(data.filter(word => word.indexOf))
+
+      };
+        // return data.map((c) => {
+        //   // return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} /> 
+        // });
+        // console.log(data);
+        // console.log(this.state.searchKeyword)
+      // console.log(filteredComponents());
+      const { classes } = this.props;
+
       return (
-        <div className={classes.root}>
+                  <div className={classes.root}>
           <AppBar position="static">
             <Toolbar>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -155,22 +160,14 @@ class ContentWindow extends Component{
               <TableCell>Item</TableCell>
             </TableHead>
             <TableBody>
-                  {this.state.customers ?
-                    filteredComponents(this.state.customers) : <TableRow></TableRow>
-              // {/* {this.state.customers.map(c=> {return(
-              //   <TableRow>
-              //     <TableCell> {c.id} </TableCell> 
-              //     <TableCell> {c.itemCode} </TableCell> 
-              //     <TableCell> {c.itemName} </TableCell>
-              //     <TableCell> <button onClick= {function(e){
-              //       e.preventDefault();
-              //       this.inputItem(c.id);
-              //       this.props.onChangePage(this.willInputItems);
-              //     }.bind(this)}>삽입</button></TableCell> 
-              //   </TableRow>
-              // );})} */}
-                  }
-            </TableBody>
+              {this.state.customers ? 
+                  filteredComponents(this.state.customers) :
+                <TableRow>
+                  <TableCell colSpan="6" align="center">
+                  </TableCell>
+                </TableRow>
+              }
+             </TableBody>
           </Table>
             <div>
               아름다운
@@ -181,4 +178,4 @@ class ContentWindow extends Component{
     }
   }
 
-export default withStyles(styles)(ContentWindow);
+  export default withStyles(styles)(ContentWindow); 
