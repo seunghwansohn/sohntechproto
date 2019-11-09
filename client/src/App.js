@@ -113,8 +113,10 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
     let nextState = {};
     nextState = {};
     nextState[e.target.name] = e.target.value;
-    console.log(nextState);
+    // this.setState(nextState);
+    // console.log(nextState);
   }
+
   render(){       //render 메소드 안에서 return문 시작 전의 부분에는 "state가 각각 변할시에 처리할 연산"을 규정
    
     var _title, _desc = null;    

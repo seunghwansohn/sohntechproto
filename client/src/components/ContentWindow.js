@@ -16,8 +16,8 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-
 import { thisExpression } from '@babel/types';
+import { array } from 'prop-types';
 
 const styles = theme => ({
   root: {
@@ -72,13 +72,13 @@ const styles = theme => ({
   },
 });
 
-
 class ContentWindow extends Component{
     constructor(props){           //2-1. State를 선언하는 일반 구문
         super(props);               //2-2. State를 선언하는 일반 구문
         this.state = {              //2-3. State를 선언하는 일반 구문
          subMenuTitle : 'Sohntech Search System',
          selectedComponent : Projects,
+         matchedidResult : [],
          customers : 
           [
           {id:99, KRsupplier:"jj"}
@@ -96,37 +96,80 @@ class ContentWindow extends Component{
       const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
       return body; //body를 return하여 callApi라는 메소드의 값으로 반환
     }
-
     willInputItems = [];
-
     inputItem = function (f){
       this.willInputItems.push(f);
     }
-
     handleValueChange = (e) => {
       let nextState = {};
       nextState = {};
       nextState[e.target.name] = e.target.value;
-      // console.log(nextState);
+      this.setState(nextState);
     }
-
     render(){
+      // console.log(this.state.customers)
       const filteredComponents = (data) => {
-        // data = data.filter((c) => {
-          // return c..indexOf(this.state.searchKeyword) > -1;
-          console.log(data.filter(word => word.indexOf))
+        var matchedid = [];
+        // console.log(this.state.matchedidResult);
 
-      };
-        // return data.map((c) => {
-        //   // return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} /> 
-        // });
-        // console.log(data);
-        // console.log(this.state.searchKeyword)
-      // console.log(filteredComponents());
+        var searchKeyword = this.state.searchKeyword
+        var processed = data.map (function(num) {
+          var values = Object.values(num);
+          var joinedString = values.join(',');
+          var trueSearched = joinedString.indexOf(searchKeyword) > - 1;
+          if (trueSearched === true) {
+            matchedid.push(num.id);
+          }
+        })
+        console.log(matchedid);
+
+        var returnWords = function(){
+          var matchedData = [];
+          var findDataId = '';
+          
+          console.log('매치 건수는 ' + matchedid.length);
+          for (var i=0; i < matchedid.length; i++){
+            var foundArrayNo = '';
+            // console.log('i는 ' + i)
+            findDataId = matchedid[i];
+            console.log('data에서 찾을 id값은' + findDataId)
+            
+            function searchMatchedData(id, data) {
+              for (var i = 0; i < data.length; i++) {
+                console.log('현재 i값은 ' + i)
+                if (data[i].id === id)  {
+                  console.log('id값 찾음. 현재 i값은 ' + i)
+                  console.log(data[i])
+                  return data[i];
+                }
+              }
+            }
+            searchMatchedData(findDataId, data);
+            console.log(foundArrayNo);
+            matchedData.push(data[matchedid[i]])
+            // console.log('매치된 값은' + matchedData[i].itemName);
+          }
+          return matchedData;
+        }
+        console.log(returnWords());
+
+        return matchedid.map((c) => {return(
+            <TableRow>
+              <TableCell> {data[1].id} </TableCell> 
+              <TableCell> {data[1].itemCode} </TableCell> 
+              <TableCell> {data[1].itemName} </TableCell>
+              <TableCell> <button onClick= {function(e){
+                e.preventDefault();
+                this.inputItem(data[1].id);
+                this.props.onChangePage(this.willInputItems);
+              }.bind(this)}>삽입</button></TableCell> 
+            </TableRow>
+        );})
+      }
+
       const { classes } = this.props;
-
       return (
-                  <div className={classes.root}>
+        <div className={classes.root}>
           <AppBar position="static">
             <Toolbar>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -160,14 +203,22 @@ class ContentWindow extends Component{
               <TableCell>Item</TableCell>
             </TableHead>
             <TableBody>
-              {this.state.customers ? 
-                  filteredComponents(this.state.customers) :
-                <TableRow>
-                  <TableCell colSpan="6" align="center">
-                  </TableCell>
-                </TableRow>
-              }
-             </TableBody>
+                  {this.state.searchKeyword ?
+                    // <TableRow></TableRow>
+                    filteredComponents(this.state.customers) :
+                    
+                    <TableRow>
+                       <TableCell> {this.state.customers[0].id} </TableCell> 
+                        <TableCell> {this.state.customers[0].itemCode} </TableCell> 
+                       <TableCell> {this.state.customers[0].itemName} </TableCell>
+                        <TableCell> <button onClick= {function(e){
+                            e.preventDefault();
+                            this.inputItem(this.state.customers[0].id);
+                            this.props.onChangePage(this.willInputItems);
+                          }.bind(this)}>삽입</button></TableCell> 
+                    </TableRow>}
+         
+            </TableBody>
           </Table>
             <div>
               아름다운
@@ -178,4 +229,4 @@ class ContentWindow extends Component{
     }
   }
 
-  export default withStyles(styles)(ContentWindow); 
+export default withStyles(styles)(ContentWindow); 
