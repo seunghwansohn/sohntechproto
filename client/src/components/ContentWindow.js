@@ -107,11 +107,9 @@ class ContentWindow extends Component{
       this.setState(nextState);
     }
     render(){
-      // console.log(this.state.customers)
+      var result = [];
       const filteredComponents = (data) => {
         var matchedid = [];
-        // console.log(this.state.matchedidResult);
-
         var searchKeyword = this.state.searchKeyword
         var processed = data.map (function(num) {
           var values = Object.values(num);
@@ -121,46 +119,44 @@ class ContentWindow extends Component{
             matchedid.push(num.id);
           }
         })
-        console.log(matchedid);
-
         var returnWords = function(){
           var matchedData = [];
           var findDataId = '';
-          
-          console.log('매치 건수는 ' + matchedid.length);
-          for (var i=0; i < matchedid.length; i++){
-            var foundArrayNo = '';
-            // console.log('i는 ' + i)
-            findDataId = matchedid[i];
-            console.log('data에서 찾을 id값은' + findDataId)
-            
-            function searchMatchedData(id, data) {
-              for (var i = 0; i < data.length; i++) {
-                console.log('현재 i값은 ' + i)
-                if (data[i].id === id)  {
-                  console.log('id값 찾음. 현재 i값은 ' + i)
-                  console.log(data[i])
-                  return data[i];
+          // console.log('매치 건수는 ' + matchedid.length);
+              for (var i=0; i < matchedid.length; i++){
+                var foundArrayNo = '';
+                // console.log('i는 ' + i)
+                findDataId = matchedid[i];
+                // console.log('data에서 찾을 id값은' + findDataId)
+                function searchMatchedData(id, data) {
+                  for (var i = 0; i < data.length; i++) {
+                    // console.log('현재 i값은 ' + i)
+                    if (data[i].id === id)  {
+                      // console.log('id값 찾음. 현재 i값은 ' + i)
+                      // console.log(data[i])
+                      return data[i];
+                    }
+                  }
                 }
+                result.push(searchMatchedData(findDataId, data))
+     
+                matchedData.push(data[matchedid[i]])
               }
-            }
-            searchMatchedData(findDataId, data);
-            console.log(foundArrayNo);
-            matchedData.push(data[matchedid[i]])
-            // console.log('매치된 값은' + matchedData[i].itemName);
-          }
-          return matchedData;
+          // console.log('최종결과는 ')
+          // console.log(result)
+          return result;
         }
-        console.log(returnWords());
-
-        return matchedid.map((c) => {return(
+        // returnWords();
+        var temporary = returnWords();
+        // console.log(temporary);
+        return temporary.map((c) => {return(
             <TableRow>
-              <TableCell> {data[1].id} </TableCell> 
-              <TableCell> {data[1].itemCode} </TableCell> 
-              <TableCell> {data[1].itemName} </TableCell>
+              <TableCell> {c.id} </TableCell> 
+              <TableCell> {c.itemCode} </TableCell> 
+              <TableCell> {c.itemName} </TableCell>
               <TableCell> <button onClick= {function(e){
                 e.preventDefault();
-                this.inputItem(data[1].id);
+                this.inputItem(c.id);
                 this.props.onChangePage(this.willInputItems);
               }.bind(this)}>삽입</button></TableCell> 
             </TableRow>
@@ -209,8 +205,8 @@ class ContentWindow extends Component{
                     
                     <TableRow>
                        <TableCell> {this.state.customers[0].id} </TableCell> 
-                        <TableCell> {this.state.customers[0].itemCode} </TableCell> 
-                       <TableCell> {this.state.customers[0].itemName} </TableCell>
+                        {/* <TableCell> {this.state.customers[0].itemCode} </TableCell>  */}
+                       {/* <TableCell> {this.state.customers[0].itemName} </TableCell> */}
                         <TableCell> <button onClick= {function(e){
                             e.preventDefault();
                             this.inputItem(this.state.customers[0].id);
