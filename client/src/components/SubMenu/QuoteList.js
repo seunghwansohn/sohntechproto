@@ -33,15 +33,6 @@ class QuoteList extends React.Component {
            <div>
                Picked Items
                <TableBody>
-                {/* <TableRow>
-                  <TableCell> {this.state.id} </TableCell> 
-                  <TableCell> {this.props.id} </TableCell> 
-                  <TableCell> <button onClick= {function(e){
-                    e.preventDefault();
-                    // this.props.onChangePage(this.deliverstring);
-                    this.props.onChangePage();
-                    }.bind(this)}>삽입</button></TableCell> 
-                </TableRow> */}
                     {this.props.pickedID.map(c=>{return(
                         <TableRow> 
                             <TableCell>{c}</TableCell>

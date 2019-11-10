@@ -19,6 +19,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { thisExpression } from '@babel/types';
 import { array } from 'prop-types';
 
+//시작-검색창 및 최상단 바 스타일 부분 (필수)
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -71,13 +72,13 @@ const styles = theme => ({
     },
   },
 });
+//끝- 검색창 및 최상단 바 스타일 부분 (필수)
+
 
 class ContentWindow extends Component{
     constructor(props){           //2-1. State를 선언하는 일반 구문
         super(props);               //2-2. State를 선언하는 일반 구문
         this.state = {              //2-3. State를 선언하는 일반 구문
-         subMenuTitle : 'Sohntech Search System',
-         selectedComponent : Projects,
          matchedidResult : [],
          customers : 
           [
@@ -96,16 +97,19 @@ class ContentWindow extends Component{
       const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
       return body; //body를 return하여 callApi라는 메소드의 값으로 반환
     }
+    
     willInputItems = [];
     inputItem = function (f){
       this.willInputItems.push(f);
     }
+
     handleValueChange = (e) => {
       let nextState = {};
       nextState = {};
       nextState[e.target.name] = e.target.value;
       this.setState(nextState);
     }
+
     render(){
       var result = [];
       const filteredComponents = (data) => {
@@ -202,25 +206,18 @@ class ContentWindow extends Component{
                   {this.state.searchKeyword ?
                     // <TableRow></TableRow>
                     filteredComponents(this.state.customers) :
-                    
-                    <TableRow>
-                       <TableCell> {this.state.customers[0].id} </TableCell> 
-                        {/* <TableCell> {this.state.customers[0].itemCode} </TableCell>  */}
-                       {/* <TableCell> {this.state.customers[0].itemName} </TableCell> */}
-                        <TableCell> <button onClick= {function(e){
-                            e.preventDefault();
-                            this.inputItem(this.state.customers[0].id);
-                            this.props.onChangePage(this.willInputItems);
-                          }.bind(this)}>삽입</button></TableCell> 
-                    </TableRow>}
-         
+                      <TableRow>
+                        <TableCell> {this.state.customers[0].id} </TableCell> 
+                          <TableCell> <button onClick= {function(e){
+                              e.preventDefault();
+                              this.inputItem(this.state.customers[0].id);
+                              this.props.onChangePage(this.willInputItems);
+                            }.bind(this)}>삽입</button></TableCell> 
+                      </TableRow>}
             </TableBody>
           </Table>
-            <div>
-              아름다운
-            </div>
         </div>
-        // 
+        // `
       );
     }
   }

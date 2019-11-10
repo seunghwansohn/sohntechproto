@@ -6,74 +6,8 @@ import SubMenu from "./components/SubMenu"; //사용자 정의 콤포넌트. 현
 import ContentWindow from "./components/ContentWindow" //위와 마찬가지로 사용자 정의 콤포넌트. 각 메뉴를 눌렀을 때 그 메뉴의 내용 페이지를 형성하는 콤포넌트 
 import TOC from "./components/TOC" //각 메뉴의 내용페이지에서 딱 제목만 보여주는 콤포넌트
 import './App.css'; //css 로딩
-import Table from '@material-ui/core/Table'; //material-ui의 Table ui를 불러와서 프론트엔드에 쓰이는 모든 테이블 스타일을 이 스타일로 함.
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
 import QuoteList from "./components/SubMenu/QuoteList";
 import AddItem from "./components/SubMenu/AddItem";
-import { withStyles } from '@material-ui/core/styles';
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
-  },
-});
 
 class App extends Component {   //1-1. APP라는 생성자를 React Component 생성자를 상속하여 만들
   
@@ -106,15 +40,12 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
     const response = await fetch('/api/customers');
     const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
     return body; //body를 return하여 callApi라는 메소드의 값으로 반환
-    
   }
 
   handleValueChange = (e) => {
     let nextState = {};
     nextState = {};
     nextState[e.target.name] = e.target.value;
-    // this.setState(nextState);
-    // console.log(nextState);
   }
 
   render(){       //render 메소드 안에서 return문 시작 전의 부분에는 "state가 각각 변할시에 처리할 연산"을 규정
@@ -135,74 +66,37 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
         i = i + 1;
       }
     }
-    
-      const { classes } = this.props;
-    
-      return (  //실제로 html로 반환할 내용을 여기서 규정
-        <div className={classes.root}>
-          <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              고객 관리 시스템
-            </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="검색하기"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                name="searchKeyword"
-                value={this.state.searchKeyword}
-                onChange={this.handleValueChange}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
-          <TopBar title = {this.state.toptitle}/>   {/* TopBar 콤포넌트에 title이라는 props에 toptitle이라는 state를 전달*/}
-          <TOC 
-              onChangePage={function(id){
-                this.setState({
-                  mode:'read',
-                  selected_content_id:Number(id)
-                });
-              }.bind(this)} //bind는 함수 밖의 state에 연결시키기 위한 것. 아주 중요한 자바스크립트 용법
-              data={this.state.contents}
-          ></TOC>
+    return (  //실제로 html로 반환할 내용을 여기서 규정
+      <div className={App}>
+        <TopBar title = {this.state.toptitle}/>   {/* TopBar 콤포넌트에 title이라는 props에 toptitle이라는 state를 전달*/}
+        
+        {/* TOC는 각 메뉴 출력하는 콤포넌트 */}
+        <TOC                                       
+            onChangePage={function(id){
+              this.setState({
+                mode:'read',
+                selected_content_id:Number(id)
+              });
+            }.bind(this)} //bind는 함수 밖의 state에 연결시키기 위한 것. 아주 중요한 자바스크립트 용법
+            data={this.state.contents}
+        ></TOC>
 
-          <div>
-            <Table>
-              <TableHead>
-
-              </TableHead>
-              <TableBody>
-              <ContentWindow onChangePage= 
-                {function(a){
-                  this.setState({
-                    pickedItems : a
-                  });
-                }.bind(this)}>
-              </ContentWindow>
-              </TableBody>
-            </Table>
-          </div>
-          
-          
-          <div><QuoteList pickedID = {this.state.pickedItems} onChangePage= 
+        <ContentWindow onChangePage= 
+          {function(a){
+            this.setState({
+              pickedItems : a
+            });
+          }.bind(this)}>
+        </ContentWindow>
+        
+        <QuoteList pickedID = {this.state.pickedItems} onChangePage= 
           {function(){
             console.log(this.state.pickedItems);
           }.bind(this)}
-            ></QuoteList></div>
-          <AddItem></AddItem>
-        </div>
+        ></QuoteList>
+
+      </div>
     );
   };
 }
-export default withStyles(styles)(App);     //1-2. APP라는 콤포넌트를 만들어 밖으로 전달하는 종료 구문.
+export default (App);     //1-2. APP라는 콤포넌트를 만들어 밖으로 전달하는 종료 구문.
