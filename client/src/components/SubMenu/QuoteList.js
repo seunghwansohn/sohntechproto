@@ -29,12 +29,20 @@ class QuoteList extends React.Component {
     }
 
     render() {
+        console.log(this.state.customers)
         return(
            <div>
+               <br></br>
                Picked Items
+               <br></br>
+               <br></br>
+               <br></br>
                <TableBody>
                     {this.props.pickedID.map(c=>{return(
                         <TableRow> 
+                            <TableCell>{c}</TableCell>
+                            <TableCell>{c}</TableCell>
+                            <TableCell>{c}</TableCell>
                             <TableCell>{c}</TableCell>
                         </TableRow>
                     );})}

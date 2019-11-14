@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import FindItem from "./SubMenu/FindItem";
-import Projects from "./SubMenu/Projects";
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Table from '@material-ui/core/Table'; //material-ui의 Table ui를 불러와서 프론트엔드에 쓰이는 모든 테이블 스타일을 이 스타일로 함.
@@ -16,8 +14,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { thisExpression } from '@babel/types';
-import { array } from 'prop-types';
+
 
 //시작-검색창 및 최상단 바 스타일 부분 (필수)
 const styles = theme => ({
@@ -112,7 +109,7 @@ class ContentWindow extends Component{
 
     render(){
       var result = [];
-      const filteredComponents = (data) => {
+      const filteredComponents = (data) => {    //이 함수의 실행결과를 통해 map을 통해 반복된 콤포넌트를 최종 리턴문 안에 삽입
         var matchedid = [];
         var searchKeyword = this.state.searchKeyword
         var processed = data.map (function(num) {
@@ -120,24 +117,17 @@ class ContentWindow extends Component{
           var joinedString = values.join(',');
           var trueSearched = joinedString.indexOf(searchKeyword) > - 1;
           if (trueSearched === true) {
-            matchedid.push(num.id);
+            matchedid.push(num.id);     //matchedid라는 미리 선언된 배열변수에, 검색어를 포함한 아이템들의 id값만 담음.
           }
         })
         var returnWords = function(){
           var matchedData = [];
           var findDataId = '';
-          // console.log('매치 건수는 ' + matchedid.length);
               for (var i=0; i < matchedid.length; i++){
-                var foundArrayNo = '';
-                // console.log('i는 ' + i)
                 findDataId = matchedid[i];
-                // console.log('data에서 찾을 id값은' + findDataId)
                 function searchMatchedData(id, data) {
                   for (var i = 0; i < data.length; i++) {
-                    // console.log('현재 i값은 ' + i)
                     if (data[i].id === id)  {
-                      // console.log('id값 찾음. 현재 i값은 ' + i)
-                      // console.log(data[i])
                       return data[i];
                     }
                   }
@@ -146,13 +136,9 @@ class ContentWindow extends Component{
      
                 matchedData.push(data[matchedid[i]])
               }
-          // console.log('최종결과는 ')
-          // console.log(result)
           return result;
         }
-        // returnWords();
         var temporary = returnWords();
-        // console.log(temporary);
         return temporary.map((c) => {return(
             <TableRow>
               <TableCell> {c.id} </TableCell> 
