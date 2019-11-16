@@ -11,12 +11,13 @@ class QuoteList extends React.Component {
         super(props);
         this.state = { 
             id : this.props.id,
-            ItemCode : '',
+            // ItemCode : '',
             ItemName : ''
         }
     }
 
     componentDidMount() {   //컴포넌트가 만들어지고 render가 호출된 이후에 호출되는 메소드
+       
         // this.callApi(1)        //json 결과를 저장한 값인 callApi 메소드의 값을 불러와서 customer라는 state의 값을 변경해줌.
         // .then(res => this.setState({customers: res}))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
         // .catch(err => console.log(err)); //에러값이 나면 콘솔에 해당 에러를 출력
@@ -24,19 +25,44 @@ class QuoteList extends React.Component {
         
     callApi = async (Id) => {    //node.js api 서버를 호출하는 함수. async는 비동기 처리를 위한 것
         let searchString = '/query/' + Id
-        console.log(searchString)
-        const response = await fetch('/query/1');
-        const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
+        const response = await fetch(searchString);
+        const body = await response.text();  //json 형식으로 받아 body라는 변수에 저장
         console.log(body)
         return body;
         // return body; //body를 return하여 callApi라는 메소드의 값으로 반환
     }
 
     pickedArr = [];
+    pickedNo = {};
+    json = [];
+    temptemp = function () {
+            this.props.pickedID.map((c) => {
+            console.log(c)
+            
+            this.makeTemplate(c);
 
+            return (
+                <TableRow>
+                    {/* <TableCell>{this.pickedArr[c].id}</TableCell>
+                    <TableCell>{this.pickedArr[c].itemCode}</TableCell>
+                    <TableCell>{this.pickedArr[c].itemName}</TableCell> */}
+                </TableRow>)
+    })}
+            // )
+    
+
+    
+    
     makeTemplate(id){
+        // this.pickedArr = [];
+        // this.pickedNo = '';
+        // console.log(this.pickedArr)
         this.callApi(id)
-        .then(res => this.pickedArr.push(res))
+        .then(res => {
+            this.pickedArr.push(res[0]);
+            this.pickedNo = JSON.parse(res)
+            console.log(this.pickedNo[0])
+        })
         .catch(err => console.log(err));
     }
 
@@ -49,8 +75,15 @@ class QuoteList extends React.Component {
             existPickedId = false
         }
         
-        this.makeTemplate(1);
+        // this.props.pickedID.map((c) => {
+        //     this.makeTemplate(c);
+        // })
         console.log(this.pickedArr)
+        // console.log(this.pickedNo)
+        // console.log(this.pickedArr["0"])
+        // console.log(this.temptemp);
+        // console.log(this.makeTemplate(1))
+        console.log(this.props.pickedNo)
         return(
            <div>
                <br></br>
@@ -70,16 +103,8 @@ class QuoteList extends React.Component {
                </TableBody>
                <TableBody>
                     {existPickedId == true ? 
-                    'fuckoff'
+                    (this.temptemp())
                     : 'Do Teen Stuff' }
-                    {/* {this.props.pickedID.map(c=>{return(
-                        <TableRow> 
-                            <TableCell>{c}</TableCell>
-                            <TableCell>{c}</TableCell>
-                            <TableCell>{c}</TableCell>
-                            <TableCell>{c}</TableCell>
-                        </TableRow>
-                    );})} */}
                </TableBody>
            </div>
         )
