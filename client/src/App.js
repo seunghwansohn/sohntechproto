@@ -89,9 +89,9 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
           }.bind(this)}>
         </ContentWindow>
         
-        <QuoteList pickedID = {this.state.pickedItems} onChangePage= 
-          {function(){
-            console.log(this.state.pickedItems);
+        <QuoteList pickedID = {this.state.pickedItems} onChangePage=  //contentWindow 콤포넌트에서 삽입 할 때마다 선택된 
+          {function(){                                                //아이템의 id값만 pickedItems라는 props로 QuoteList에 전달됨.
+            console.log(this.state.pickedItems);                      //pickedItems는 배열로 전달되며 값이 축적됨.
           }.bind(this)}
         ></QuoteList>
 

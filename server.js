@@ -30,5 +30,15 @@ app.get('/api/customers', (req, res) => {
   )
 });
 
+app.get('/query/:select', (req, res) => {
+  searchString = 'SELECT * FROM itemList WHERE id = ' + req.params.select
+  connection.query(
+    searchString,
+    (err, rows, fields) => {
+    res.send(rows);
+    }
+  )
+});
+
     
 app.listen(port, () => console.log(`Listening on port ${port}`));
