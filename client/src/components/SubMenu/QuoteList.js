@@ -58,9 +58,7 @@ class QuoteList extends React.Component {
         } else {
             existPickedId = false
         }
-        
-        this.arrr.push(this.makeTemplate(1))
-        console.log(this.arrr)
+
         return(
            <div>
                <br></br>
