@@ -6,6 +6,12 @@ import Table from '@material-ui/core/Table'; //material-ui의 Table ui를 불러
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 
+
+var myApp = {};
+
+myApp.values = {
+    'pickedArr1' : null
+}
 class QuoteList extends React.Component {
     constructor(props) {
         super(props);
@@ -14,51 +20,35 @@ class QuoteList extends React.Component {
             // ItemCode : '',
             ItemName : '',
             ki : [
-                {id:99, ItemCode : 33, ItemName : '22'}
-            ]
+                {id:99, ItemCode : 33, ItemName : '22'},
+            ],
+            pickedIdState : []
         }
+        
     }
 
+    arrr = [];
     componentDidMount() {   //컴포넌트가 만들어지고 render가 호출된 이후에 호출되는 메소드
-        // .then(res => this.setState({customers: res}))  //callApi 메소드의 response 값을 customers라는 state로 전달하여 변경
-        // .catch(err => console.log(err)); //에러값이 나면 콘솔에 해당 에러를 출력
-        var ki = ''
     }
         
-    callApi = async (Id) => {    //node.js api 서버를 호출하는 함수. async는 비동기 처리를 위한 것
-        let searchString = '/query/' + Id
-        const response = await fetch(searchString);
-        const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
-        return body;
-        // return body; //body를 return하여 callApi라는 메소드의 값으로 반환
+    callApi = function(id) {
+        var api = async () => {    //node.js api 서버를 호출하는 함수. async는 비동기 처리를 위한 것
+            let searchString = '/query/' + id
+            const response = await fetch(searchString);
+            const body = await response.json();  //json 형식으로 받아 body라는 변수에 저장
+            return body;
+        }
+        return api();
     }
 
-    pickedArr = [];
-    pickedNo = [];
-    json = [];
-    
-    temptemp = function () {
-            this.props.pickedID.map((c) => {
-            console.log(c)
-            
-            this.makeTemplate(c);
-
-            return (
-                <TableRow>
-                    {/* <TableCell>{this.pickedArr[c].id}</TableCell>
-                    <TableCell>{this.pickedArr[c].itemCode}</TableCell>
-                    <TableCell>{this.pickedArr[c].itemName}</TableCell> */}
-                </TableRow>)
-    })}
-            // )
-    
-    makeTemplate(id){
-        this.callApi(id)
-        .then(res => {this.ki = res[0]
-            // console.log(this.ki[0].itemName)
-        })
-        .catch(err => console.log(err))
-    }
+    makeTemplate = function(id){
+        return function(i) {
+            this.callApi(i)
+            .then(res => this.ki = res[0])
+            .catch(err => console.log(err))
+            return this.ki
+        }
+    }();
 
     render() {
         //선택된 아이템 값이 하나라도 존재하면 existPicedId는 true, 아니면 false, 기본값은 false
@@ -69,10 +59,8 @@ class QuoteList extends React.Component {
             existPickedId = false
         }
         
-        this.makeTemplate(1)
-        var iii = this.ki
-        console.log(iii)
-
+        this.arrr.push(this.makeTemplate(1))
+        console.log(this.arrr)
         return(
            <div>
                <br></br>
@@ -92,8 +80,7 @@ class QuoteList extends React.Component {
                </TableBody>
                <TableBody>
                     {existPickedId == true ? 
-                    // (this.temptemp())
-                    'dl'
+                    (this.componentDidMount())
                     : 'Do Teen Stuff' }
                </TableBody>
            </div>
