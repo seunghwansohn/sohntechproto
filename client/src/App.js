@@ -49,7 +49,7 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
   }
 
   render(){       //render 메소드 안에서 return문 시작 전의 부분에는 "state가 각각 변할시에 처리할 연산"을 규정
-   
+    console.log(this.state.pickedItems)
     var _title, _desc = null;    
     if(this.state.mode ===  'welcome'){
       _title = this.state.welcome.title;
@@ -89,7 +89,7 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
           }.bind(this)}>
         </ContentWindow>
         
-        <QuoteList pickedID = {this.state.pickedItems} onChangePage=  //contentWindow 콤포넌트에서 삽입 할 때마다 선택된 
+        <QuoteList picked = {this.state.pickedItems} onChangePage=  //contentWindow 콤포넌트에서 삽입 할 때마다 선택된 
           {function(){                                                //아이템의 id값만 pickedItems라는 props로 QuoteList에 전달됨.
             console.log(this.state.pickedItems);                      //pickedItems는 배열로 전달되며 값이 축적됨.
           }.bind(this)}

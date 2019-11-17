@@ -154,7 +154,7 @@ class ContentWindow extends Component{
               <TableCell> {c.itemName} </TableCell>
               <TableCell> <button onClick= {function(e){
                 e.preventDefault();
-                this.inputItem(c.id);
+                this.inputItem(c);
                 this.props.onChangePage(this.willInputItems);
               }.bind(this)}>삽입</button></TableCell> 
             </TableRow>
@@ -206,7 +206,7 @@ class ContentWindow extends Component{
                         <TableCell> {this.state.customers[0].id} </TableCell> 
                           <TableCell> <button onClick= {function(e){
                               e.preventDefault();
-                              this.inputItem(this.state.customers[0].id);
+                              this.inputItem(this.state.customers[0]);
                               this.props.onChangePage(this.willInputItems);
                             }.bind(this)}>삽입</button></TableCell> 
                       </TableRow>}
