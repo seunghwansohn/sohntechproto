@@ -49,7 +49,7 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
   }
 
   render(){       //render 메소드 안에서 return문 시작 전의 부분에는 "state가 각각 변할시에 처리할 연산"을 규정
-    console.log(this.state.pickedItems)
+    // console.log(this.state.pickedItems)
     var _title, _desc = null;    
     if(this.state.mode ===  'welcome'){
       _title = this.state.welcome.title;

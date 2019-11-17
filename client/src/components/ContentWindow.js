@@ -103,7 +103,32 @@ class ContentWindow extends Component{
     willInputItems = [];
 
     inputItem = function (f){
-      this.willInputItems.push(f);
+      let addedDummy = 0
+      // console.log('--------------비교작업 시작합니다')
+      // console.log('새로 삽입버튼 눌러진 id 값은' + f.id)
+      if (this.willInputItems.length == 0) {
+        this.willInputItems.push(f);
+        console.log('첫번째 if로 추가')
+      } 
+      else {
+        let count = 0
+        for (let i = 0; i < this.willInputItems.length; i++) {
+          // console.log('현재 방금 삽입버튼 눌러진 id값인 ' + f.id +'와 이미 입력된 ' + i + '번째 값' +  this.willInputItems[i].id + '와 비교중')
+          if (f.id == this.willInputItems[i].id) {
+            count = count + 1 - addedDummy
+          // this.willInputItems.push(f);
+          }
+        }
+        console.log('중복된 값 수는 ' + count);
+          if (count == 0) {
+          // console.log('중복된 값이 없습니다')
+          console.log(f)
+          this.willInputItems.push(f);
+          console.log('두번쨰 if로 추가')
+          addedDummy = addedDummy + 1 
+          // console.log('과정끝')
+        }
+      }
     }
 
     //시작 - 동빈나에서 받아온 검색창 구현 코드 중 일부. 
