@@ -8,6 +8,7 @@ import TOC from "./components/TOC" //각 메뉴의 내용페이지에서 딱 제
 import './App.css'; //css 로딩
 import QuoteList from "./components/SubMenu/QuoteList";
 import AddItem from "./components/SubMenu/AddItem";
+import {MainWindow} from "./containers/main.js"
 
 class App extends Component {   //1-1. APP라는 생성자를 React Component 생성자를 상속하여 만들
   
@@ -94,6 +95,8 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
             console.log(this.state.pickedItems);                      //pickedItems는 배열로 전달되며 값이 축적됨.
           }.bind(this)}
         ></QuoteList>
+        <MainWindow/>
+        
 
       </div>
     );
