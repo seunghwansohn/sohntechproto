@@ -2,13 +2,11 @@
 
 import React, { Component } from 'react';  //리액트에서 콤포넌트만 불러옴.
 import TopBar from "./components/TopBar";   //사용자 정의 콤포넌트 /src/components/TopBar.js 파일에 규정된 콤포넌트를 불러옴. 페이지에서 가장 최상단의 로고등 표시하는 콤포넌트
-import SubMenu from "./components/SubMenu"; //사용자 정의 콤포넌트. 현재의 이 app.js 파일에서 로딩만 되고 실제 쓰이지는 않았으므로 VScode에서는 흐리게 나옴.
 import ContentWindow from "./components/ContentWindow" //위와 마찬가지로 사용자 정의 콤포넌트. 각 메뉴를 눌렀을 때 그 메뉴의 내용 페이지를 형성하는 콤포넌트 
 import TOC from "./components/TOC" //각 메뉴의 내용페이지에서 딱 제목만 보여주는 콤포넌트
 import './App.css'; //css 로딩
 import QuoteList from "./components/SubMenu/QuoteList";
-import AddItem from "./components/SubMenu/AddItem";
-import {MainWindow} from "./containers/main.js"
+import ItemListContainer from "./containers/itemListContainer.js"
 
 class App extends Component {   //1-1. APP라는 생성자를 React Component 생성자를 상속하여 만들
   
@@ -95,7 +93,8 @@ class App extends Component {   //1-1. APP라는 생성자를 React Component �
             console.log(this.state.pickedItems);                      //pickedItems는 배열로 전달되며 값이 축적됨.
           }.bind(this)}
         ></QuoteList>
-        <MainWindow/>
+        
+        <ItemListContainer/>
         
 
       </div>
