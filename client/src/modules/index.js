@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import contentWindow from './contentWindow'
+import itemListModule from './itemListModule'
 
 const rootReducer = combineReducers({
-    contentWindow,
+    itemListModule,
 });
 
 export default rootReducer;

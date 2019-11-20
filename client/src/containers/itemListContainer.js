@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {increase, decrease} from '../modules/contentWindow'
+import {increase, decrease} from '../modules/itemListModule'
 import ItemListComponent from '../components/ItemListComponent'
 
 //콘테이너에는 이렇게
@@ -15,7 +15,7 @@ const ItemListContainer = ({no, increase, decrease}) => {
 }
 //2. 순수 Component로부터 module을 거쳐 dispatch 받았을 때 어떤 state 변화 요청을 변할지를 규정
 const mapStateToProps = state => ({
-    no: state.contentWindow.no,
+    no: state.itemListModule.no,
 })
 const mapDispatchToProps = dispatch => ({
     increase: () => {

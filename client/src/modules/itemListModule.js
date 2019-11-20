@@ -1,5 +1,5 @@
-const INCREASE = "contentWindo/INCREASE"
-const DECREASE = "contentWindo/DECREASE"
+const INCREASE = "itemListModule/INCREASE"
+const DECREASE = "itemListModule/DECREASE"
 
 export const increase = () => ({type : INCREASE})
 export const decrease = () => ({type : DECREASE})
@@ -8,7 +8,7 @@ const initialState = {
     no: 2
 }
 
-function contentWindo(state = initialState, action) {
+function itemListModule(state = initialState, action) {
     switch (action.type) {
         case INCREASE:
             return {
@@ -22,5 +22,4 @@ function contentWindo(state = initialState, action) {
             return state;
     }
 }
-
-export default contentWindo
+export default itemListModule
